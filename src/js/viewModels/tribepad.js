@@ -7,7 +7,7 @@
 /**
  * tribepad module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext'
+define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'ojs/ojaccordion'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -15,21 +15,36 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext'
     function tribepadContentViewModel() {
         var self = this;
         
+        self.baseUrl = "http://localhost:1337/fuscdrmovm167-hcm-ext.us.oracle.com:443";
+        
         self.position = ko.observable();
         self.positions = ko.observableArray([]);
         
         self.manager = ko.observable();
         self.managers = ko.observableArray([]);
         
+        self.getPositionsUrl = "/hcmCoreSetupApi/resources/latest/positions?q=PositionCode like 'TESCO%'&onlyData=true&fields=PositionId,Name,BusinessUnitId,DepartmentId,JobId,LocationId,EntryGradeId,EntryStepId,GradeLadderId";
+        self.getPositionsRequest = "GET " + self.getPositionsUrl;
+        self.getPositionsResponse = ko.observable();
+        
+        self.getManagersUrl = "/hcmCoreApi/resources/latest/emps?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10&q=PersonId < 20";
+        self.getManagersRequest = "GET " + self.getManagersUrl;
+        self.getManagersResponse = ko.observable();
+        
+        self.getGradeLadderRequest = ko.observable();
+        self.getGradeLadderResponse = ko.observable();
+        
         self.getPositions = function () {
             $.ajax({
-                url: "http://localhost:1337/fuscdrmovm167-hcm-ext.us.oracle.com:443/hcmCoreSetupApi/resources/latest/positions?q=PositionCode like 'TESCO%'&onlyData=true&fields=PositionId,Name,BusinessUnitId,DepartmentId,JobId,LocationId,EntryGradeId,EntryStepId,GradeLadderId",
+                url: self.baseUrl + self.getPositionsUrl,
                 type: 'GET',
                 headers: {
                         'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
                         'REST-Framework-Version': 2
                     },
                 success: function(positions) {
+                        self.getPositionsResponse(JSON.stringify(positions, null, 2));
+                    
                         $.each(positions.items, function () {
                             self.positions.push({
                                 value: this.PositionId,
@@ -49,13 +64,15 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext'
         
         self.getManagers = function () {
             $.ajax({
-                url: "http://localhost:1337/fuscdrmovm167-hcm-ext.us.oracle.com:443/hcmCoreApi/resources/latest/emps?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10&q=PersonId < 20",
+                url: self.baseUrl + self.getManagersUrl,
                 type: 'GET',
                 headers: {
                         'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
                         'REST-Framework-Version': 2
                     },
                 success: function(managers) {
+                        self.getManagersResponse(JSON.stringify(managers, null, 2));
+                    
                         $.each(managers.items, function () {
                             self.managers.push({
                                 value: this.PersonId,
@@ -80,6 +97,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext'
         self.jobId = ko.observable();
         self.locationId = ko.observable();
         self.gradeId = ko.observable();
+        self.gradeStepId = ko.observable();
+        self.gradeLadderId = ko.observable();
         self.managerId = ko.observable();
         self.managerAssignmentId = ko.observable();
         self.salaryAmount = ko.observable();
@@ -94,6 +113,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext'
                     self.jobId(position.jobId);
                     self.locationId(position.locationId);
                     self.gradeId(position.entryGradeId);
+                    self.gradeStepId(position.entryStepId);
+                    self.gradeLadderId(position.gradeLadderId);
                     break;
                 }
             }
@@ -106,6 +127,34 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext'
                     break;
                 }
             }
+            
+            var getGradeLadderUrl = "/hcmCoreSetupApi/resources/latest/gradeLadders?onlyData=true&expand=stepRates,stepRates.stepRateValues&q=GradeLadderId=" + self.gradeLadderId();
+            self.getGradeLadderRequest("GET " + getGradeLadderUrl);
+            
+            $.ajax({
+                url: self.baseUrl + getGradeLadderUrl,
+                type: 'GET',
+                headers: {
+                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                        'REST-Framework-Version': 2
+                    },
+                success: function(gradeLadders) {
+                        self.getGradeLadderResponse(JSON.stringify(gradeLadders, null, 2));
+                    
+                        for (var i = 0; i < gradeLadders.items[0].stepRates.length; i++) {
+                            if (gradeLadders.items[0].stepRates[i].RateType == "SALARY") {
+                                for (var j = 0; j < gradeLadders.items[0].stepRates[i].stepRateValues.length; j++) {
+                                    if (gradeLadders.items[0].stepRates[i].stepRateValues[j].GradeStepId == self.gradeStepId()) {
+                                        self.salaryAmount(gradeLadders.items[0].stepRates[i].stepRateValues[j].StepRateValueAmount);
+                                        break;
+                                    }
+                                }
+                                
+                                break;
+                            }
+                        }
+                    }
+            });
         }
     }        
     

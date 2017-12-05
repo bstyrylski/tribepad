@@ -8,9 +8,9 @@
 
 pre {
     height: auto;
-    max-height: 200px;
+    max-height: 500px;
     overflow: auto;
-    background-color: #fef3ce !important;
+    background-color: #E6E6FA !important;
     word-break: normal !important;
     word-wrap: normal !important;
     white-space: pre !important;

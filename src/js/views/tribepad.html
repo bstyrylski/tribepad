@@ -1,143 +1,201 @@
-<h1>Create Vacancy</h1>
+<div class="oj-flex">  
+    <div class="oj-flex-item">
+        
+        <h1>Create Vacancy</h1>
+        
+        <div class="oj-form-layout">
+            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="positionSelection">HCM Position</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-select-one id="positionSelection" 
+                                       options="[[positions]]" 
+                                       value="{{position}}"
+                                       placeholder="" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="managerSelection">HCM Line Manager</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-select-one id="managerSelection" 
+                                       options="[[managers]]" 
+                                       value="{{manager}}"
+                                       placeholder="" />
+                    </div>
+                </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item"></div>
+                    <div class="oj-flex-item">
+                        <oj-button id="submitVacancy" on-click="[[submitVacancy]]">Submit</oj-button>
+                    </div>
+                </div>
+            </div>    
+        </div>
 
-<div class="oj-form-layout">
-    <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="positionSelection">HCM Position</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-select-one id="positionSelection" 
-                               options="[[positions]]" 
-                               value="{{position}}"
-                               placeholder="" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="managerSelection">HCM Line Manager</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-select-one id="managerSelection" 
-                               options="[[managers]]" 
-                               value="{{manager}}"
-                               placeholder="" />
-            </div>
-        </div>
-        <div class="oj-flex">
-            <div class="oj-flex-item"></div>
-            <div class="oj-flex-item">
-                <oj-button id="submitVacancy" on-click="[[submitVacancy]]">Submit</oj-button>
-            </div>
-        </div>
-    </div>    
-</div>
+        <h1>Hire Employee</h1>
 
-<h1>Hire Employee</h1>
+        <div class="oj-form-layout">
+            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="firstName">First Name</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="firstName" value="{{firstName}}" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="lastName">Last Name</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="lastName" value="{{lastName}}" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="nationalId">National ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="nationalId" value="{{nationalId}}" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="positionId">Position ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="positionId" value="{{positionId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="businessUnitId">Business Unit ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="businessUnitId" value="{{businessUnitId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="departmentId">Department ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="departmentId" value="{{departmentId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="jobId">Job ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="jobId" value="{{jobId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="locationId">Location ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="locationId" value="{{locationId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="gradeId">Grade ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="gradeId" value="{{gradeId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="gradeStepId">Grade Step ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="gradeStepId" value="{{gradeStepId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="gradeLadderId">Grade Ladder ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="gradeLadderId" value="{{gradeLadderId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="managerId">Manager ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="managerId" value="{{managerId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="managerAssignmentId">Manager Assignment ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="managerAssignmentId" value="{{managerAssignmentId}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">  
+                    <div class="oj-flex-item">
+                        <oj-label for="salaryAmount">Salary Amount</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="salaryAmount" value="{{salaryAmount}}" disabled="true" />
+                    </div>
+                </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item"></div>
+                    <div class="oj-flex-item">
+                        <oj-button id="submitEmployee">Submit</oj-button>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
 
-<div class="oj-form-layout">
-    <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="firstName">First Name</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="firstName" value="{{firstName}}" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="lastName">Last Name</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="lastName" value="{{lastName}}" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="nationalId">National ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="nationalId" value="{{nationalId}}" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="positionId">Position ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="positionId" value="{{positionId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="businessUnitId">Business Unit ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="businessUnitId" value="{{businessUnitId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="departmentId">Department ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="departmentId" value="{{departmentId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="jobId">Job ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="jobId" value="{{jobId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="locationId">Location ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="locationId" value="{{locationId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="gradeId">Grade ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="gradeId" value="{{gradeId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="managerId">Manager ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="managerId" value="{{managerId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="managerAssignmentId">Manager Assignment ID</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="managerAssignmentId" value="{{managerAssignmentId}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">  
-            <div class="oj-flex-item">
-                <oj-label for="salaryAmount">Salary Amount</oj-label>
-            </div>
-            <div class="oj-flex-item">
-                <oj-input-text id="salaryAmount" value="{{salaryAmount}}" disabled="true" />
-            </div>
-        </div>
-        <div class="oj-flex">
-            <div class="oj-flex-item"></div>
-            <div class="oj-flex-item">
-                <oj-button id="submitEmployee">Submit</oj-button>
-            </div>
-        </div>
-    </div>    
+    <div class="oj-flex-item" style="width: 500px">
+        <h1>REST requests details</h1>
+        <oj-accordion id="accordionPage" multiple expanded='[{"id":"c2"}, {"id":"c3"}]'>
+            <oj-collapsible id="c1">
+                <span slot="header">Get positions</span>
+                <div>
+                    <h3>Request</h3>
+                    <pre data-bind="text: getPositionsRequest" />
+                    <h3>Response</h3>
+                    <pre data-bind="text: getPositionsResponse" />
+                </div>
+            </oj-collapsible>
+            <oj-collapsible id="c1">
+                <span slot="header">Get managers</span>
+                <div>
+                    <h3>Request</h3>
+                    <pre data-bind="text: getManagersRequest" />
+                    <h3>Response</h3>
+                    <pre data-bind="text: getManagersResponse" />
+                </div>
+            </oj-collapsible>
+            <oj-collapsible id="c1">
+                <span slot="header">Get grade ladder</span>
+                <div>
+                    <h3>Request</h3>
+                    <pre data-bind="text: getGradeLadderRequest" />
+                    <h3>Response</h3>
+                    <pre data-bind="text: getGradeLadderResponse" />
+                </div>
+            </oj-collapsible>
+            <oj-collapsible id="c1">
+                <span slot="header">Create employee</span>
+                <div>TODO</div>
+            </oj-collapsible>
+        </oj-accordion>
+    </div>        
 </div>
