@@ -1,5 +1,31 @@
 <h1>Create Vacancy</h1>
-<div>TODO</div>
+
+<div class="oj-form-layout">
+    <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline oj-form-cols-labels-inline oj-form-cols-max2">  
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <oj-label for="positionSelection">HCM Position</oj-label>
+            </div>
+            <div class="oj-flex-item">
+                <oj-select-one id="positionSelection" 
+                               options="[[positions]]" 
+                               value="{{position}}"
+                               placeholder=""/>
+            </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <oj-label for="managerSelection">HCM Line Manager</oj-label>
+            </div>
+            <div class="oj-flex-item">
+                <oj-select-one id="managerSelection" 
+                               options="[[managers]]" 
+                               value="{{manager}}"
+                               placeholder=""/>
+            </div>
+        </div>
+    </div>    
+</div>
 
 <h1>Create Employee</h1>
 <div>TODO</div>
