@@ -1,0 +1,43 @@
+<h1>Jobs suggest</h1>
+<div>
+    <div>
+        <table>
+            <tr>
+                <td width="400px">
+                    <input id="searchPhrase" 
+                           class="oj-inputtext-input" 
+                           placeholder="Enter search phrase..."
+                           data-bind="value: searchPhrase, valueUpdate: 'afterkeydown'" />
+
+                </td>
+                <td>
+                    <div data-bind="visible: isInProgress">
+                        <oj-progress id="progress" type="circle" value="-1" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="padding-top: 20px; margin-bottom: 20px">
+        <oj-collapsible id="collapsibleRequestDetails">
+            <h3 slot="header">Request details</h3>
+            <pre data-bind="text: payload" />
+        </oj-collapsible>
+        <div class="oj-panel">
+            <div class="oj-flex-item oj-margin">Overall response time: <span data-bind="text: timeTookOverall" style="font-size: larger; font-weight: bold" /> ms</div>
+            <div class="oj-flex-item oj-margin">Search processing time: <span data-bind="text: timeTook" style="font-size: larger; font-weight: bold" /> ms</div>
+            <div class="oj-flex-item oj-margin">Total hits: <span data-bind="text: totalHits" style="font-size: larger; font-weight: bold" /></div>
+        </div>
+    </div>
+    <div class="oj-flex">
+        <oj-table id="results" 
+                  data="[[results]]" 
+                  columns-default='{"sortable": "none"}' 
+                  columns='[{"headerText": "ID", 
+                    "field": "id"},
+                    {"headerText": "Job Name", 
+                    "field": "jobName"},
+                    {"headerText": "Score", 
+                    "field": "score"}]' />
+    </div>
+</div>
