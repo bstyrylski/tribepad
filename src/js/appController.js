@@ -20,17 +20,13 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarray
        // Router setup
        self.router = oj.Router.rootInstance;
        self.router.configure({
-         'jobsSearch': {label: 'Jobs search', isDefault: true},
-         'jobsSuggest': {label: 'Jobs suggest'},
-         'jobsLovSearch': {label: 'Jobs LOV search'}
+         'tribepad': {label: 'TribePad', isDefault: true}
        });
       oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
 
       // Navigation setup
       var navData = [
-        {name: 'Jobs search', id: 'jobsSearch'},
-        {name: 'Jobs suggest', id: 'jobsSuggest'},
-        {name: 'Jobs LOV search', id: 'jobsLovSearch'}
+        {name: 'TribePad', id: 'tribepad'}
       ];
       self.navDataSource = new oj.ArrayTableDataSource(navData, {idAttribute: 'id'});
 
@@ -51,7 +47,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojrouter', 'ojs/ojknockout', 'ojs/ojarray
 
       // Header
       // Application Name used in Branding Area
-      self.appName = ko.observable("Elasticsearch POC");
+      self.appName = ko.observable("TESCO TribePad Demo");
 
       // Footer
       function footerLink(name, id, linkTarget) {
