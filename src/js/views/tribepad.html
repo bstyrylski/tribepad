@@ -171,7 +171,7 @@
                 <div class="oj-flex">
                     <div class="oj-flex-item"></div>
                     <div class="oj-flex-item">
-                        <oj-button id="submitEmployee">Submit</oj-button>
+                        <oj-button id="submitEmployee" on-click="[[submitEmployee]]">Submit</oj-button>
                     </div>
                 </div>
             </div>    
@@ -180,8 +180,8 @@
 
     <div class="oj-flex-item" style="width: 500px">
         <h1>REST requests details</h1>
-        <oj-accordion id="accordionPage" multiple expanded='[{"id":"c2"}, {"id":"c3"}]'>
-            <oj-collapsible id="c1">
+        <oj-accordion multiple="true">
+            <oj-collapsible>
                 <span slot="header">Get positions 
                     <span data-bind="visible: getPositionsProgress">
                         <oj-progress id="getPositionsProgress" type="circle" value="-1" />
@@ -194,7 +194,7 @@
                     <pre data-bind="text: getPositionsResponse" />
                 </div>
             </oj-collapsible>
-            <oj-collapsible id="c1">
+            <oj-collapsible>
                 <span slot="header">Get managers 
                     <span data-bind="visible: getManagersProgress">
                         <oj-progress id="getManagersProgress" type="circle" value="-1" />
@@ -207,7 +207,7 @@
                     <pre data-bind="text: getManagersResponse" />
                 </div>
             </oj-collapsible>
-            <oj-collapsible id="c1">
+            <oj-collapsible>
                 <span slot="header">Get grade ladder 
                     <span data-bind="visible: getGradeLadderProgress">
                         <oj-progress id="getGradeLadderProgress" type="circle" value="-1" />
@@ -220,9 +220,16 @@
                     <pre data-bind="text: getGradeLadderResponse" />
                 </div>
             </oj-collapsible>
-            <oj-collapsible id="c1">
-                <span slot="header">Create employee</span>
-                <div>TODO</div>
+            <oj-collapsible>
+                <span slot="header">Create employee 
+                    <span data-bind="visible: createEmployeeProgress">
+                        <oj-progress id="createEmployeeProgress" type="circle" value="-1" />
+                    </span>
+                </span>
+                <h3>Request</h3>
+                <pre data-bind="text: createEmployeeRequest" />
+                <h3>Response</h3>
+                <pre data-bind="text: createEmployeeResponse" />
             </oj-collapsible>
         </oj-accordion>
     </div>        

@@ -28,7 +28,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
         self.getPositionsResponse = ko.observable();
         self.getPositionsProgress = ko.observable(false);
         
-        self.getManagersUrl = "/hcmCoreApi/resources/latest/emps?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10&q=PersonId < 20";
+        self.empsUrl = "/hcmCoreApi/resources/latest/emps";
+        self.getManagersUrl = self.empsUrl + "?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10&q=PersonId < 20";
         self.getManagersRequest = "GET " + self.getManagersUrl;
         self.getManagersResponse = ko.observable();
         self.getManagersProgress = ko.observable(false);
@@ -36,6 +37,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
         self.getGradeLadderRequest = ko.observable();
         self.getGradeLadderResponse = ko.observable();
         self.getGradeLadderProgress = ko.observable(false);
+        
+        self.createEmployeeRequest = ko.observable();
+        self.createEmployeeResponse = ko.observable();
+        self.createEmployeeProgress = ko.observable(false);
         
         self.getPositions = function () {
             self.getPositionsProgress(true);
@@ -111,8 +116,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
         self.gradeLadderId = ko.observable();
         self.fullPartTime = ko.observable();
         self.regularTemporary = ko.observable();
+        
         self.managerId = ko.observable();
         self.managerAssignmentId = ko.observable();
+        
         self.salaryAmount = ko.observable();
         
         self.submitVacancy = function () {
@@ -171,6 +178,94 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                         
                         self.getGradeLadderProgress(false);
                     }
+            });
+        }
+        
+        self.submitEmployee = function () {
+            var employee = {
+                Salutation: "MR.",
+                LegalEntityId : 40010,
+                FirstName: self.firstName(),
+                MiddleName: null,
+                LastName: self.lastName(),
+                NameSuffix: null,
+                Honors: null,
+                DisplayName: self.firstName() + " " + self.lastName(),
+                HomePhoneCountryCode: null,
+                HomePhoneAreaCode: null,
+                HomePhoneNumber: null,
+                HomePhoneExtension: null,
+                HomeFaxCountryCode: null,
+                HomeFaxAreaCode: null,
+                HomeFaxNumber: null,
+                HomeFaxExtension: null,
+                AddressLine1: "The Innovation Centre",
+                AddressLine2: "217 Portobello",
+                AddressLine3: null,
+                City: "Sheffield",
+                Region: null,
+                Region2: null,
+                Country: "GB",
+                PostalCode: "S1 4DP",
+                Religion: null,
+                LicenseNumber: null,
+                DateOfBirth: "1999-10-05",
+                Ethnicity: null,
+                Gender: "M",
+                NationalIdCountry: null,
+                NationalId: self.nationalId(),
+                NationalIdType: "NINO",
+                assignments: [
+                    {
+                        PositionId: self.positionId(),
+                        BusinessUnitId: self.businessUnitId(),
+                        DepartmentId: self.departmentId(),
+                        JobId: self.jobId(),
+                        LocationId: self.locationId(),
+                        GradeId: self.gradeId(),
+                        WorkerCategory: null,
+                        AssignmentCategory: "FR",
+                        WorkingAtHome: "N",
+                        WorkingAsManager: "N",
+                        SalaryCode: null,
+                        Frequency: "W",
+                        WorkingHours: 30,
+                        SalaryAmount: self.salaryAmount(),
+                        SalaryBasisId: 300000002451105,
+                        ActionCode: "HIRE", 
+                        ActionReasonCode: "NEWHIRE",
+                        AssignmentStatus: "ACTIVE",
+                        ManagerId: self.managerId(),
+                        ManagerAssignmentId: self.managerAssignmentId(),
+                        ManagerType: "LINE_MANAGER",
+                        WorkTaxAddressId : null,
+                        LegalEntityId: 40010,
+                        GradeLadderId: self.gradeLadderId(),
+                        FullPartTime: self.fullPartTime(),
+                        RegularTemporary: self.regularTemporary(),
+                    }
+                ]
+            }
+            
+            self.createEmployeeRequest("POST " + self.empsUrl + "\n\n" + JSON.stringify(employee, null, 2));
+            
+            self.createEmployeeProgress(true);
+            $.ajax({
+                url: self.baseUrl + self.empsUrl,
+                type: 'POST',
+                contentType: 'application/vnd.oracle.adf.resourceitem+json',
+                headers: {
+                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                    },
+                data: JSON.stringify(employee),
+                success: function(employee) {
+                    self.createEmployeeResponse(JSON.stringify(employee, null, 2));
+                    self.createEmployeeProgress(false);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    self.createEmployeeResponse("ERROR\n\n" + JSON.stringify(jqXHR, null, 2) + "\n\n" + textStatus + "\n\n" + errorThrown);
+                    self.createEmployeeProgress(false);
+                }
             });
         }
     }        
