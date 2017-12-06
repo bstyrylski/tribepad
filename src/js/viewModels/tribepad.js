@@ -7,7 +7,7 @@
 /**
  * tribepad module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'ojs/ojaccordion'
+define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'ojs/ojaccordion', 'ojs/ojprogress'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -26,15 +26,19 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
         self.getPositionsUrl = "/hcmCoreSetupApi/resources/latest/positions?q=PositionCode like 'TESCO%'&onlyData=true&fields=PositionId,Name,BusinessUnitId,DepartmentId,JobId,LocationId,EntryGradeId,EntryStepId,GradeLadderId";
         self.getPositionsRequest = "GET " + self.getPositionsUrl;
         self.getPositionsResponse = ko.observable();
+        self.getPositionsProgress = ko.observable(false);
         
         self.getManagersUrl = "/hcmCoreApi/resources/latest/emps?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10&q=PersonId < 20";
         self.getManagersRequest = "GET " + self.getManagersUrl;
         self.getManagersResponse = ko.observable();
+        self.getManagersProgress = ko.observable(false);
         
         self.getGradeLadderRequest = ko.observable();
         self.getGradeLadderResponse = ko.observable();
+        self.getGradeLadderProgress = ko.observable(false);
         
         self.getPositions = function () {
+            self.getPositionsProgress(true);
             $.ajax({
                 url: self.baseUrl + self.getPositionsUrl,
                 type: 'GET',
@@ -58,11 +62,13 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                                 gradeLadderId: this.GradeLadderId,
                             });
                         });
+                        self.getPositionsProgress(false);
                     }
             });
         }
         
         self.getManagers = function () {
+            self.getManagersProgress(true);
             $.ajax({
                 url: self.baseUrl + self.getManagersUrl,
                 type: 'GET',
@@ -80,6 +86,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                                 assignmentId: (this.assignments.length > 0) ? this.assignments[0].AssignmentId : null
                             });
                         });
+                        
+                        self.getManagersProgress(false);
                     }
             });
         }
@@ -131,6 +139,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
             var getGradeLadderUrl = "/hcmCoreSetupApi/resources/latest/gradeLadders?onlyData=true&expand=stepRates,stepRates.stepRateValues&q=GradeLadderId=" + self.gradeLadderId();
             self.getGradeLadderRequest("GET " + getGradeLadderUrl);
             
+            self.getGradeLadderProgress(true);
             $.ajax({
                 url: self.baseUrl + getGradeLadderUrl,
                 type: 'GET',
@@ -153,6 +162,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                                 break;
                             }
                         }
+                        
+                        self.getGradeLadderProgress(false);
                     }
             });
         }

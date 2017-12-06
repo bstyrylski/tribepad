@@ -166,7 +166,11 @@
         <h1>REST requests details</h1>
         <oj-accordion id="accordionPage" multiple expanded='[{"id":"c2"}, {"id":"c3"}]'>
             <oj-collapsible id="c1">
-                <span slot="header">Get positions</span>
+                <span slot="header">Get positions 
+                    <span data-bind="visible: getPositionsProgress">
+                        <oj-progress id="getPositionsProgress" type="circle" value="-1" />
+                    </span>
+                </span>
                 <div>
                     <h3>Request</h3>
                     <pre data-bind="text: getPositionsRequest" />
@@ -175,7 +179,11 @@
                 </div>
             </oj-collapsible>
             <oj-collapsible id="c1">
-                <span slot="header">Get managers</span>
+                <span slot="header">Get managers 
+                    <span data-bind="visible: getManagersProgress">
+                        <oj-progress id="getManagersProgress" type="circle" value="-1" />
+                    </span>
+                </span>
                 <div>
                     <h3>Request</h3>
                     <pre data-bind="text: getManagersRequest" />
@@ -184,7 +192,11 @@
                 </div>
             </oj-collapsible>
             <oj-collapsible id="c1">
-                <span slot="header">Get grade ladder</span>
+                <span slot="header">Get grade ladder 
+                    <span data-bind="visible: getGradeLadderProgress">
+                        <oj-progress id="getGradeLadderProgress" type="circle" value="-1" />
+                    </span>
+                </span>
                 <div>
                     <h3>Request</h3>
                     <pre data-bind="text: getGradeLadderRequest" />
