@@ -1,2 +1,1 @@
 - finish create employee
-- add full/part regular/temporary fields

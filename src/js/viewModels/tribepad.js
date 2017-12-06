@@ -23,7 +23,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
         self.manager = ko.observable();
         self.managers = ko.observableArray([]);
         
-        self.getPositionsUrl = "/hcmCoreSetupApi/resources/latest/positions?q=PositionCode like 'TESCO%'&onlyData=true&fields=PositionId,Name,BusinessUnitId,DepartmentId,JobId,LocationId,EntryGradeId,EntryStepId,GradeLadderId";
+        self.getPositionsUrl = "/hcmCoreSetupApi/resources/latest/positions?q=PositionCode like 'TESCO%'&onlyData=true&fields=PositionId,Name,BusinessUnitId,DepartmentId,JobId,LocationId,EntryGradeId,EntryStepId,GradeLadderId,FullPartTime,RegularTemporary";
         self.getPositionsRequest = "GET " + self.getPositionsUrl;
         self.getPositionsResponse = ko.observable();
         self.getPositionsProgress = ko.observable(false);
@@ -60,6 +60,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                                 entryGradeId: this.EntryGradeId,
                                 entryStepId: this.EntryStepId,
                                 gradeLadderId: this.GradeLadderId,
+                                fullPartTime: this.FullPartTime,
+                                regularTemporary: this.RegularTemporary
                             });
                         });
                         self.getPositionsProgress(false);
@@ -107,6 +109,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
         self.gradeId = ko.observable();
         self.gradeStepId = ko.observable();
         self.gradeLadderId = ko.observable();
+        self.fullPartTime = ko.observable();
+        self.regularTemporary = ko.observable();
         self.managerId = ko.observable();
         self.managerAssignmentId = ko.observable();
         self.salaryAmount = ko.observable();
@@ -123,6 +127,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                     self.gradeId(position.entryGradeId);
                     self.gradeStepId(position.entryStepId);
                     self.gradeLadderId(position.gradeLadderId);
+                    self.fullPartTime(position.fullPartTime);
+                    self.regularTemporary(position.regularTemporary);
                     break;
                 }
             }
