@@ -234,3 +234,14 @@
         </oj-accordion>
     </div>        
 </div>
+<oj-dialog style="display:none" id="employeeDialog" title="Employee created">
+    <div slot="body">
+        Successfully create employee with ID <span data-bind="text: personId" />
+    </div>
+    <div slot="footer">
+        <oj-button id="okButton" data-bind="click: function() {
+                  document.querySelector('#employeeDialog').close();
+                }">  OK
+        </oj-button>
+    </div>
+</oj-dialog>

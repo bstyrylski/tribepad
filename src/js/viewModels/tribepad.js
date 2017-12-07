@@ -7,7 +7,8 @@
 /**
  * tribepad module
  */
-define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'ojs/ojaccordion', 'ojs/ojprogress'
+define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 
+    'ojs/ojaccordion', 'ojs/ojprogress', 'ojs/ojdialog'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
@@ -122,6 +123,8 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
         
         self.salaryAmount = ko.observable();
         
+        self.personId = ko.observable();
+        
         self.submitVacancy = function () {
             for (var i = 0; i < self.positions().length; i++) {
                 if (self.positions()[i].value == self.position()) {
@@ -214,7 +217,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                 Gender: "M",
                 NationalIdCountry: null,
                 NationalId: self.nationalId(),
-                NationalIdType: "NINO",
+                NationalIdType: "PAYINT_EMPLOYEEID",
                 assignments: [
                     {
                         PositionId: self.positionId(),
@@ -222,7 +225,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                         DepartmentId: self.departmentId(),
                         JobId: self.jobId(),
                         LocationId: self.locationId(),
-                        GradeId: self.gradeId(),
+//                        GradeId: self.gradeId(),
                         WorkerCategory: null,
                         AssignmentCategory: "FR",
                         WorkingAtHome: "N",
@@ -231,7 +234,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                         Frequency: "W",
                         WorkingHours: 30,
                         SalaryAmount: self.salaryAmount(),
-                        SalaryBasisId: 300000002451105,
+                        SalaryBasisId: 100010025000007,
                         ActionCode: "HIRE", 
                         ActionReasonCode: "NEWHIRE",
                         AssignmentStatus: "ACTIVE",
@@ -259,8 +262,11 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext', 'oj
                     },
                 data: JSON.stringify(employee),
                 success: function(employee) {
-                    self.createEmployeeResponse(JSON.stringify(employee, null, 2));
+                    self.createEmployeeResponse("OK\n\n" + JSON.stringify(employee, null, 2));
                     self.createEmployeeProgress(false);
+                    
+                    self.personId(employee.PersonId);
+                    document.querySelector('#employeeDialog').open();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     self.createEmployeeResponse("ERROR\n\n" + JSON.stringify(jqXHR, null, 2) + "\n\n" + textStatus + "\n\n" + errorThrown);
