@@ -1,7 +1,7 @@
 <div class="oj-flex">  
     <div class="oj-flex-item">
         
-        <h1>Create Vacancy</h1>
+        <h1>Create vacancy</h1>
         
         <div class="oj-form-layout">
             <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
@@ -36,7 +36,7 @@
             </div>    
         </div>
 
-        <h1>Hire Employee</h1>
+        <h1>Hire employee</h1>
 
         <div class="oj-form-layout">
             <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
@@ -176,6 +176,27 @@
                 </div>
             </div>    
         </div>
+        
+        <h1>Get employee</h1>
+
+        <div class="oj-form-layout">
+            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="personId">Person ID</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-input-text id="personId" value="{{personId}}" />
+                    </div>
+                </div>
+                <div class="oj-flex">
+                    <div class="oj-flex-item"></div>
+                    <div class="oj-flex-item">
+                        <oj-button id="getEmployee" on-click="[[getEmployee]]">Submit</oj-button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="oj-flex-item" style="width: 500px">
@@ -230,6 +251,17 @@
                 <pre data-bind="text: createEmployeeRequest" />
                 <h3>Response</h3>
                 <pre data-bind="text: createEmployeeResponse" />
+            </oj-collapsible>
+            <oj-collapsible>
+                <span slot="header">Get employee 
+                    <span data-bind="visible: getEmployeeProgress">
+                        <oj-progress id="getEmployeeProgress" type="circle" value="-1" />
+                    </span>
+                </span>
+                <h3>Request</h3>
+                <pre data-bind="text: getEmployeeRequest" />
+                <h3>Response</h3>
+                <pre data-bind="text: getEmployeeResponse" />
             </oj-collapsible>
         </oj-accordion>
     </div>        

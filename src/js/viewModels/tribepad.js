@@ -43,6 +43,10 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
         self.createEmployeeResponse = ko.observable();
         self.createEmployeeProgress = ko.observable(false);
         
+        self.getEmployeeRequest = ko.observable();
+        self.getEmployeeResponse = ko.observable();
+        self.getEmployeeProgress = ko.observable(false);
+        
         self.getPositions = function () {
             self.getPositionsProgress(true);
             $.ajax({
@@ -272,6 +276,25 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                     self.createEmployeeResponse("ERROR\n\n" + JSON.stringify(jqXHR, null, 2) + "\n\n" + textStatus + "\n\n" + errorThrown);
                     self.createEmployeeProgress(false);
                 }
+            });
+        }
+        
+        self.getEmployee = function () {
+            var getEmployeeUrl = self.empsUrl + "?onlyData=true&q=PersonId=" + self.personId();
+            self.getEmployeeRequest("GET " + getEmployeeUrl);
+            
+            self.getEmployeeProgress(true);
+            $.ajax({
+                url: self.baseUrl + getEmployeeUrl,
+                type: 'GET',
+                headers: {
+                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                        'REST-Framework-Version': 2
+                    },
+                success: function(employees) {
+                        self.getEmployeeResponse(JSON.stringify(employees, null, 2));                      
+                        self.getEmployeeProgress(false);
+                    }
             });
         }
     }        
