@@ -16,7 +16,17 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
     function tribepadContentViewModel() {
         var self = this;
         
-        self.baseUrl = "http://localhost:1337/fuscdrmovm167-hcm-ext.us.oracle.com:443";
+//        self.baseUrl = "http://localhost:1337/fuscdrmovm167-hcm-ext.us.oracle.com:443";
+        self.baseUrl = "http://localhost:1337/fuscdrmsmc209-fa-ext.us.oracle.com:443";
+        
+//        self.empsModule = "/hcmCoreApi/resources/latest";
+        self.empsModule = "/hcmRestApi/resources/latest";
+//        self.workStructuresModule = "/hcmRestSetupApi/resources/latest";
+        self.workStructuresModule = self.empsModule;
+        
+//        self.authorization = "Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==";
+        self.hiringManager = "Basic VEVTQ09fREVNT19ISVJJTkdfTUdSIDpXZWxjb21lMQ==";
+        self.systemUser = "Basic VEVTQ09fREVNT19VU0VSOldlbGNvbWUx";
         
         self.position = ko.observable();
         self.positions = ko.observableArray([]);
@@ -24,12 +34,12 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
         self.manager = ko.observable();
         self.managers = ko.observableArray([]);
         
-        self.getPositionsUrl = "/hcmCoreSetupApi/resources/latest/positions?q=PositionCode like 'TESCO%'&onlyData=true&fields=PositionId,Name,BusinessUnitId,DepartmentId,JobId,LocationId,EntryGradeId,EntryStepId,GradeLadderId,FullPartTime,RegularTemporary";
+        self.getPositionsUrl = self.workStructuresModule + "/positions?q=PositionCode like 'TESCO%'&onlyData=true&fields=PositionId,Name,BusinessUnitId,DepartmentId,JobId,LocationId,EntryGradeId,EntryStepId,GradeLadderId,FullPartTime,RegularTemporary";
         self.getPositionsRequest = "GET " + self.getPositionsUrl;
         self.getPositionsResponse = ko.observable();
         self.getPositionsProgress = ko.observable(false);
         
-        self.empsUrl = "/hcmCoreApi/resources/latest/emps";
+        self.empsUrl = self.empsModule + "/emps";
         self.getManagersUrl = self.empsUrl + "?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10&q=PersonId < 20";
         self.getManagersRequest = "GET " + self.getManagersUrl;
         self.getManagersResponse = ko.observable();
@@ -53,7 +63,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + self.getPositionsUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                        'Authorization': self.hiringManager,
                         'REST-Framework-Version': 2
                     },
                 success: function(positions) {
@@ -85,7 +95,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + self.getManagersUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                        'Authorization': self.hiringManager,
                         'REST-Framework-Version': 2
                     },
                 success: function(managers) {
@@ -156,7 +166,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 }
             }
             
-            var getGradeLadderUrl = "/hcmCoreSetupApi/resources/latest/gradeLadders?onlyData=true&expand=stepRates,stepRates.stepRateValues&q=GradeLadderId=" + self.gradeLadderId();
+            var getGradeLadderUrl = self.workStructuresModule + "/gradeLadders?onlyData=true&expand=stepRates,stepRates.stepRateValues&q=GradeLadderId=" + self.gradeLadderId();
             self.getGradeLadderRequest("GET " + getGradeLadderUrl);
             
             self.getGradeLadderProgress(true);
@@ -164,7 +174,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + getGradeLadderUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                        'Authorization': self.hiringManager,
                         'REST-Framework-Version': 2
                     },
                 success: function(gradeLadders) {
@@ -229,7 +239,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                         DepartmentId: self.departmentId(),
                         JobId: self.jobId(),
                         LocationId: self.locationId(),
-//                        GradeId: self.gradeId(),
+                        GradeId: self.gradeId(),
                         WorkerCategory: null,
                         AssignmentCategory: "FR",
                         WorkingAtHome: "N",
@@ -262,7 +272,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 type: 'POST',
                 contentType: 'application/vnd.oracle.adf.resourceitem+json',
                 headers: {
-                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                        'Authorization': self.systemUser,
                     },
                 data: JSON.stringify(employee),
                 success: function(employee) {
@@ -288,7 +298,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + getEmployeeUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': 'Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==',
+                        'Authorization': self.hiringManager,
                         'REST-Framework-Version': 2
                     },
                 success: function(employees) {
