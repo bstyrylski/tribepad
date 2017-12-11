@@ -180,7 +180,17 @@
         <h1>Get employee</h1>
 
         <div class="oj-form-layout">
-            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">  
+            <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <oj-label for="getEmployeeUser">User</oj-label>
+                    </div>
+                    <div class="oj-flex-item">
+                        <oj-select-one id="getEmployeeUser" 
+                                       options="[[users]]" 
+                                       value="{{getEmployeeUser}}" />
+                    </div>
+                </div>
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <oj-label for="personId">Person ID</oj-label>

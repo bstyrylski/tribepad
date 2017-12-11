@@ -22,12 +22,29 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
 //        self.empsModule = "/hcmCoreApi/resources/latest";
         self.empsModule = "/hcmRestApi/resources/latest";
 //        self.workStructuresModule = "/hcmRestSetupApi/resources/latest";
-        self.workStructuresModule = self.empsModule;
+        self.workStructuresModule = self.empsModule;            
         
-//        self.authorization = "Basic VEVTQ09fREVNT19ISVJJTkdfTUdSX1dPX1BPUzpXZWxjb21lMQ==";
-        self.hiringManager = "Basic VEVTQ09fREVNT19ISVJJTkdfTUdSIDpXZWxjb21lMQ==";
-        self.systemUser = "Basic VEVTQ09fREVNT19VU0VSOldlbGNvbWUx";
-        self.systemUserWithPII = "Basic VEVTQ09fREVNT19VU0VSX1BJSTpXZWxjb21lMQ==";
+        self.hiringManager = "TESCO_DEMO_HIRING_MGR";
+        self.systemUser = "TESCO_DEMO_USER";
+        self.systemUserWithPii = "TESCO_DEMO_USER_PII";
+        self.password = "Welcome1";
+        
+        self.users = [
+            {
+                value: self.hiringManager,
+                label: self.hiringManager
+            },
+            {
+                value: self.systemUser,
+                label: self.systemUser
+            },
+            {
+                value: self.systemUserWithPii,
+                label: self.systemUserWithPii
+            }
+        ];
+        
+        self.getEmployeeUser = ko.observable(self.systemUserWithPii);
         
         self.position = ko.observable();
         self.positions = ko.observableArray([]);
@@ -64,7 +81,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + self.getPositionsUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': self.hiringManager,
+                        'Authorization': "Basic " + btoa(self.hiringManager + ":" + self.password),
                         'REST-Framework-Version': 2
                     },
                 success: function(positions) {
@@ -96,7 +113,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + self.getManagersUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': self.hiringManager,
+                        'Authorization': "Basic " + btoa(self.hiringManager + ":" + self.password),
                         'REST-Framework-Version': 2
                     },
                 success: function(managers) {
@@ -175,7 +192,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + getGradeLadderUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': self.hiringManager,
+                        'Authorization': "Basic " + btoa(self.hiringManager + ":" + self.password),
                         'REST-Framework-Version': 2
                     },
                 success: function(gradeLadders) {
@@ -280,7 +297,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 type: 'POST',
                 contentType: 'application/vnd.oracle.adf.resourceitem+json',
                 headers: {
-                        'Authorization': self.systemUser,
+                        'Authorization': "Basic " + btoa(self.systemUser + ":" + self.password),
                     },
                 data: JSON.stringify(employee),
                 success: function(employee) {
@@ -306,7 +323,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
                 url: self.baseUrl + getEmployeeUrl,
                 type: 'GET',
                 headers: {
-                        'Authorization': self.systemUserWithPII,
+                        'Authorization': "Basic: " + btoa(self.getEmployeeUser() + ":" + self.password),
                         'REST-Framework-Version': 2
                     },
                 success: function(employees) {
