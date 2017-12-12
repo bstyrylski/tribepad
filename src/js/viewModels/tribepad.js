@@ -16,17 +16,17 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
     function tribepadContentViewModel() {
         var self = this;
         
-//        self.baseUrl = "http://localhost:1337/fuscdrmovm167-hcm-ext.us.oracle.com:443";
-        self.baseUrl = "http://localhost:1337/fuscdrmsmc209-fa-ext.us.oracle.com:443";
-        
-//        self.empsModule = "/hcmCoreApi/resources/latest";
         self.empsModule = "/hcmRestApi/resources/latest";
-//        self.workStructuresModule = "/hcmRestSetupApi/resources/latest";
-        self.workStructuresModule = self.empsModule;            
+        self.workStructuresModule = self.empsModule; 
+        
+//        self.baseUrl = "http://localhost:1337/fuscdrmsmc209-fa-ext.us.oracle.com:443";
+        self.baseUrl = "http://localhost:1337/fuscdrmsmc107-fa-ext.us.oracle.com:443";           
         
         self.hiringManager = "TESCO_DEMO_HIRING_MGR";
-        self.systemUser = "TESCO_DEMO_USER";
-        self.systemUserWithPii = "TESCO_DEMO_USER_PII";
+//        self.systemUser = "TESCO_DEMO_USER";
+        self.systemUser = "TESCO_DEMO_USER01";
+//        self.systemUserWithPii = "TESCO_DEMO_USER_PII";
+        self.systemUserWithPii = "TESCO_DEMO_USER01_PII";
         self.password = "Welcome1";
         
         self.users = [
@@ -58,7 +58,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojselectcombobox', 'ojs/ojinputtext',
         self.getPositionsProgress = ko.observable(false);
         
         self.empsUrl = self.empsModule + "/emps";
-        self.getManagersUrl = self.empsUrl + "?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10&q=PersonId < 20";
+        self.getManagersUrl = self.empsUrl + "?fields=PersonId,DisplayName;assignments:AssignmentId&onlyData=true&limit=10";
         self.getManagersRequest = "GET " + self.getManagersUrl;
         self.getManagersResponse = ko.observable();
         self.getManagersProgress = ko.observable(false);
